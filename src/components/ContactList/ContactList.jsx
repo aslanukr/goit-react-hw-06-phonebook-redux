@@ -1,19 +1,33 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { ListItem } from './ListItem';
 import { List, Info } from 'components/Styles.styled';
 import Notiflix from 'notiflix';
+import { getContacts, getFilter } from 'redux/selectors';
 
-export const ContactList = ({ contactsArray, deleteContact }) => {
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+
+  const getFilteredContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    const sortedContacts = contacts.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    return sortedContacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  const visibleContacts = getFilteredContacts();
+
   return (
     <>
       <List>
-        {contactsArray.length ? (
-          contactsArray.map(({ id, name, number }) => (
-            <ListItem
-              key={id}
-              contact={{ id, name, number }}
-              deleteItem={deleteContact}
-            />
+        {visibleContacts.length ? (
+          visibleContacts.map(({ id, name, number }) => (
+            <ListItem key={id} contact={{ id, name, number }} />
           ))
         ) : (
           <>
@@ -24,15 +38,4 @@ export const ContactList = ({ contactsArray, deleteContact }) => {
       </List>
     </>
   );
-};
-
-ContactList.propTypes = {
-  contactsArray: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  deleteContact: PropTypes.func.isRequired,
 };

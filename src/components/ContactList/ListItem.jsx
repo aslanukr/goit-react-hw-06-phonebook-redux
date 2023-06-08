@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 import { BiTrash, BiPhoneCall } from 'react-icons/bi';
 import { ContactItem, DeleteBtn, PhoneWrapper } from 'components/Styles.styled';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/actions';
 
-export const ListItem = ({ contact, deleteItem }) => {
+export const ListItem = ({ contact }) => {
   const { id, name, number } = contact;
+
+  const dispatch = useDispatch();
+
   return (
     <ContactItem>
       {name}
@@ -16,7 +21,7 @@ export const ListItem = ({ contact, deleteItem }) => {
           type="button"
           name="delete"
           value={id}
-          onClick={() => deleteItem(id)}
+          onClick={() => dispatch(deleteContact(contact.id))}
         >
           <BiTrash size="20px" />
         </DeleteBtn>
@@ -31,5 +36,4 @@ ListItem.propTypes = {
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   }).isRequired,
-  deleteItem: PropTypes.func.isRequired,
 };
