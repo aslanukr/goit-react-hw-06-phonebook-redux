@@ -1,13 +1,14 @@
+import { addContact, deleteContact } from 'redux/types';
 import { initialState } from './initialState';
 
 export const contactsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'contacts/addContact':
+    case addContact:
       return {
         ...state,
         contacts: [...state.contacts, action.payload],
       };
-    case 'contacts/deleteContact':
+    case deleteContact:
       return {
         ...state,
         contacts: state.contacts.filter(
