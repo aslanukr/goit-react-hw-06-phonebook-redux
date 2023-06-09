@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/actions';
 import { getContacts } from 'redux/selectors';
 import Notiflix from 'notiflix';
+import { useEffect } from 'react';
 
 export function ContactForm() {
   const contacts = useSelector(getContacts);
@@ -22,10 +23,14 @@ export function ContactForm() {
       return;
     } else {
       dispatch(addContact(name, number));
-
+      localStorage.setItem('contacts', JSON.stringify(contacts));
       e.target.reset();
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <>
