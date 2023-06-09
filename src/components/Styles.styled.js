@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 50px;
-
+  margin: 0 auto;
+  max-width: 700px;
   font-size: 40px;
   color: #010101;
 `;
@@ -34,7 +35,7 @@ export const Form = styled.form`
   gap: 20px;
   align-items: center;
   margin: 0 auto;
-  max-width: 500px;
+
   margin-top: 30px;
   font-size: 20px;
 
@@ -92,12 +93,19 @@ export const AddBtn = styled.button`
 
 export const Wrapper = styled.div`
   margin: 0 auto;
-  flex-wrap: wrap;
+
+  flex-direction: column;
   margin-top: 30px;
   max-width: 700px;
   display: flex;
   justify-content: center;
+
   gap: 15px;
+
+  @media screen and (min-width: 568px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 export const SectionTitle = styled.h2`
@@ -109,8 +117,8 @@ export const SectionTitle = styled.h2`
 `;
 
 export const FilterInput = styled.input`
+  max-width: 240px;
   font-size: 18px;
-  margin-left: auto;
   padding: 2px 2px;
   user-select: none;
   outline: none;
@@ -134,7 +142,7 @@ export const List = styled.ul`
   gap: 20px;
   align-items: start;
   margin: 0 auto;
-  max-width: 700px;
+
   margin-top: 30px;
 `;
 
@@ -146,6 +154,7 @@ export const ContactItem = styled.li`
   align-items: center;
   margin: 0 auto;
   font-size: 15px;
+
   @media screen and (min-width: 468px) {
     font-size: 20px;
   }
@@ -171,4 +180,17 @@ export const PhoneWrapper = styled.a`
 
 export const Info = styled.p`
   font-size: 25px;
+`;
+
+export const Name = styled.p`
+  display: block;
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
+export const ContactWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
